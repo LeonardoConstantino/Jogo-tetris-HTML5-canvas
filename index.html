@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Canvas</title>
+</head>
+
+<body onload="desenha()">
+    <main>
+        <div class="tela">
+            <canvas id="canvas"></canvas>
+            <div class="infos">
+                <div>
+                    <p>Pontos:</p>
+                    <spam class="pontos">
+                        00
+                    </spam>
+                </div>
+                <div>
+                    <p>Proximo:</p>
+                    <canvas id="cvspxm"></canvas>
+                </div>
+                <div>
+                    <p>Recorde:</p>
+                    <spam class="recorde">
+                        00
+                    </spam>
+                </div> <label> <input type="checkbox" name="debug" id="debug"> Debug</label>
+            </div>
+        </div>
+        <hr>
+        <div class="controle">
+            <div>
+                <div class="game"> <button class="button pausar" onclick="pausar()" title="Começar/pausar">‣/‖</button>
+                    <button class="button reset" title="reset" onclick="reset()">■</button>
+                </div> <button class="button espaco" onclick="esp()" title="Espaço">↻</button>
+            </div>
+            <div class="setas">
+                <div>
+                    <div class="seta"></div> <button class="button seta" onclick="c()" title="Seta para cima">↑
+                    </button>
+                    <div class="seta"></div>
+                </div>
+                <div> <button class="button seta" onclick="e()" title="Seta para esquerda">←</button> <button
+                        class="button seta" onclick="b()" title="Seta para baixo">↓</button> <button class="button seta"
+                        onclick="d()" title="Seta para direita">→</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="tetris.js"></script>
+</body>
+
+</html>
