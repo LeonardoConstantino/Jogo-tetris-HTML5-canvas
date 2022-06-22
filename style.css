@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@300&display=swap');
+
+* {
+    /*reset css*/
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: #121212;
+    display: flex;
+    justify-content: center;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-width: 90%;
+    max-width: 500px;
+    padding-top: 1em;
+    background-color: #121212;
+}
+
+.tela {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .25em;
+}
+
+.infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    align-self: flex-start;
+    max-width: 132px;
+    width: 28vw;
+    padding: 1em 0;
+    gap: 3em;
+}
+
+.infos>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+    padding: 1em 0;
+}
+
+.infos>div>p {
+    font-weight: 700;
+    font-size: .95em;
+    color: #9E9E9E;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.infos>div>spam {
+    font-size: 1.5em;
+    color: #9E9E9E;
+    font-family: 'Press Start 2P', cursive;
+}
+
+#cvspxm {
+    border: solid 1px red;
+    border-radius: .25em;
+    width: 5em;
+    height: 5em;
+}
+
+canvas {
+    width: 70vw;
+    max-width: 330px;
+    border: solid 1px red;
+    image-rendering: pixelated;
+}
+
+.controle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    max-width: 500px;
+    gap: .50em;
+}
+
+.controle>div {
+    width: 100%;
+    padding: .50em;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+    margin-right: 2px;
+    background-color: #bbb;
+    line-height: 40px;
+    padding: 0 20px;
+    font-weight: bold;
+    border: solid 5px #000;
+
+    border-width: 0 4px 5px 0;
+    border-radius: 5px;
+    border-color: transparent #ddd #999 transparent;
+    background-clip: padding-box;
+    color: #121212;
+    font-size: 2em;
+
+}
+
+.espaco {
+    height: 40px;
+    width: 100%;
+}
+
+.seta {
+    height: 40px;
+
+}
+
+.game {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    height: 40px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.game>button {
+    border-radius: 50%;
+    padding: 10px;
+    height: 30px;
+    /*width: 60px;*/
+}
+
+.setas>div {
+    display: flex;
+    justify-content: center;
+    padding: .25em;
+}
+
+.button:active {
+    border-width: 0 2px 3px 0;
+    margin-right: 4px;
+    position: relative;
+    left: 2px;
+    top: 3px;
+}
+
+hr {
+    width: 99%;
+    margin: 1em 0;
+    background-image: linear-gradient(#ddd, #ccc, #ddd);
+}
