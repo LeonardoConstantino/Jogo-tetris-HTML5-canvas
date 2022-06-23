@@ -887,6 +887,21 @@ let py = 80
 let dpy = 480
 
 const desenha = () => {
+    if (!iniciou) {
+        //ctx.fillStyle = "rgba(51,51,51,.5)" 
+        //ctx.fillRect(0,0,largura,altura)
+        //ctx.fillStyle = "#f00" 
+        ctx.fillStyle = "#ddd"
+        ctx.font = `70px 'Press Start 2P' `
+        ctx.fillText("Aperte o play", 50, 950)
+        ctx.fillText("para começar", 80, 1130)
+        if (perdeu) {
+            ctx.fillText("voce marcou", 100, 1310)
+            ctx.fillText(pontos + " pontos!", 200, 1450)
+        }
+        //ctx.restore()
+        return
+    }
     //ctx.save()
     //console.count("desenha")
     ctx.clearRect(0, 0, largura, altura)
@@ -955,21 +970,6 @@ const desenha = () => {
         }
         desenhaProxima(fazFormas(posx, posy, proximaForma, 0), i)
         //ctx.restore()
-    }
-    if (!iniciou) {
-        //ctx.fillStyle = "rgba(51,51,51,.5)" 
-        //ctx.fillRect(0,0,largura,altura)
-        //ctx.fillStyle = "#f00" 
-        ctx.fillStyle = "#ddd"
-        ctx.font = `70px 'Press Start 2P' `
-        ctx.fillText("Aperte o play", 50, 950)
-        ctx.fillText("para começar", 80, 1130)
-        if (perdeu) {
-            ctx.fillText("voce marcou", 100, 1310)
-            ctx.fillText(pontos + " pontos!", 200, 1450)
-        }
-        //ctx.restore()
-        return
     }
 
 
@@ -1086,6 +1086,7 @@ const colidiuBaixo = (forma, objs, tam) => {
 }
 
 const esp = () => {
+    if (!iniciou) return
     let prxangulo = angulo == 3 ? 0 : angulo + 1
     if (colidiuGiro(fazFormas(posx, posy, formaAtual, prxangulo), objetos, t)) {
         return
@@ -1094,11 +1095,13 @@ const esp = () => {
 }
 
 const c = () => {
+    if (!iniciou) return
     posy -= t
-    desenha()
+    // desenha()
 }
 
 const b = () => {
+    if (!iniciou) return
     if (colidiuBaixo(fazFormas(posx, posy, formaAtual, angulo), objetos, t)) {
         return
     }
@@ -1106,6 +1109,7 @@ const b = () => {
 }
 
 const e = () => {
+    if (!iniciou) return
     if (colidiuEsquerda(fazFormas(posx, posy, formaAtual, angulo), objetos)) {
         return
     }
@@ -1113,10 +1117,11 @@ const e = () => {
         return
     }
     posx -= t
-    desenha()
+    // desenha()
 }
 
 const d = () => {
+    if (!iniciou) return
     if (colidiuDireita(fazFormas(posx, posy, formaAtual, angulo), objetos)) {
         return
     }
@@ -1124,7 +1129,7 @@ const d = () => {
         return
     }
     posx += t
-    desenha()
+    // desenha()
 }
 
 const pausar = () => {
