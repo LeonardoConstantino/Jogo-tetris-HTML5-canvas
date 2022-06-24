@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -41,18 +42,18 @@
                 <div class="game">
                     <button
                         class="button pausar"
-                        onclick="pausar()"
+                        data-button-key="KeyP"
                         title="Começar/pausar"
                     >‣/‖</button>
                     <button
                         class="button reset"
+                        data-button-key="KeyR"
                         title="reset"
-                        onclick="reset()"
                     >■</button>
                 </div> 
                 <button
                     class="button espaco"
-                    onclick="esp()"
+                    data-button-key="Space"
                     title="Espaço"
                 >↻</button>
             </div>
@@ -61,7 +62,7 @@
                     <div class="seta"></div>
                     <button
                         class="button seta"
-                        onclick="c()"
+                        data-button-key="ArrowUp"
                         title="Seta para cima"
                     >↑</button>
                     <div class="seta"></div>
@@ -69,24 +70,25 @@
                 <div>
                     <button 
                         class="button seta"
-                        onclick="e()"
+                        data-button-key="ArrowLeft"
                         title="Seta para esquerda"
                     >←</button>
                     <button
                         class="button seta"
-                        onclick="b()"
+                        data-button-key="ArrowDown"
                         title="Seta para baixo"
                     >↓</button>
                     <button
                         class="button seta"
-                        onclick="d()"
+                        data-button-key="ArrowRight"
                         title="Seta para direita"
                     >→</button>
                 </div>
             </div>
         </div>
     </main>
-    <script src="tetris.js"></script>
+    <!-- <script src="tetris.js"></script> -->
+    <script type="module" src="tetris.js"></script>
 </body>
 
 </html>
