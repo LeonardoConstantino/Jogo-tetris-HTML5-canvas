@@ -1,3 +1,4 @@
+import fazFormas from './fazForma.js'
 const BODY = document.querySelector("body")
 const PONTOS = document.querySelector(".pontos")
 const RECORDE = document.querySelector(".recorde")
@@ -14,17 +15,22 @@ canvas2.height = 600
 const largura = ctx.canvas.width
 const altura = ctx.canvas.height
 
+//Variaveis de alinhamento de texto debug
+let paddingX = 30
+let paddingY = 80
+let paddingYExtra = 480
+
 //variaveis de controle
 const tamanho = 100
 const t = tamanho
 const m = t / 2
+const dificuldade = 10
 let iniciou = false
 let perdeu = false
 let angulo = Math.floor((Math.random() * 4))
 let posx = 500
 let posy = -200
 let attTela = 500
-const dificuldade = 10
 let formaAtual = Math.floor((Math.random() * 7))
 let proximaForma = Math.floor((Math.random() * 7))
 let pontos = 0
@@ -103,637 +109,637 @@ const gradiente = (cor1, cor2, x1, y1, x2, y2) => {
     ctx2.fillStyle = lineargradient2
 }
 
-const fazFormas = (x, y, f, a) => {
-    //console.count("fazFormas")
-    //let t = tamanho 
-    const fms = [
-        [],
-        [],
-        [x, y - (t * 3)],
-        [],
-        [],
-        [],
-        [x - t, y - (t * 2)],
-        [x, y - (t * 2)],
-        [x + t, y - (t * 2)],
-        [],
-        [x - (t * 2), y - t],
-        [x - t, y - t],
-        [x, y - t],
-        [x + t, y - t],
-        [x + (t * 2), y - t],
-        [x - (t * 2), y],
-        [x - t, y],
-        [x, y],
-        [x + t, y],
-        [x + (t * 2), y]
-    ]
-    const [
-        b0, b1, b2, b3, b4,
-        b5, b6, b7, b8, b9,
-        b10, b11, b12, b13, b14,
-        b15, b16, b17, b18, b19
-    ] = fms
-    //faz forma O
-    if (f === 0) {
-        return [{
-                x: b17[0],
-                y: b17[1],
-                x2: b17[0] + m,
-                y2: b17[1] + m
-            },
-            {
-                x: b16[0],
-                y: b16[1],
-                x2: b16[0] + m,
-                y2: b16[1] + m
-            },
-            {
-                x: b11[0],
-                y: b11[1],
-                x2: b11[0] + m,
-                y2: b11[1] + m
-            },
-            {
-                x: b12[0],
-                y: b12[1],
-                x2: b12[0] + m,
-                y2: b12[1] + m
-            },
-            {
-                cor: "#F9FF00",
-                sombra: "#7D8000"
-            }
-        ]
-    }
-    //faz forma I
-    if (f === 1) {
-        a = a % 2
-        if (a === 1) {
-            return [{
-                    x: b17[0],
-                    y: b17[1],
-                    x2: b17[0] + m,
-                    y2: b17[1] + m
-                },
-                {
-                    x: b15[0],
-                    y: b15[1],
-                    x2: b15[0] + m,
-                    y2: b15[1] + m
-                },
-                {
-                    x: b16[0],
-                    y: b16[1],
-                    x2: b16[0] + m,
-                    y2: b16[1] + m
-                },
-                {
-                    x: b18[0],
-                    y: b18[1],
-                    x2: b18[0] + m,
-                    y2: b18[1] + m
-                },
-                {
-                    cor: "#05F2F2",
-                    sombra: "#027373"
-                }
-            ]
-        }
-        return [{
-                x: b17[0],
-                y: b17[1],
-                x2: b17[0] + m,
-                y2: b17[1] + m
-            },
-            {
-                x: b12[0],
-                y: b12[1],
-                x2: b12[0] + m,
-                y2: b12[1] + m
-            },
-            {
-                x: b7[0],
-                y: b7[1],
-                x2: b7[0] + m,
-                y2: b7[1] + m
-            },
-            {
-                x: b2[0],
-                y: b2[1],
-                x2: b2[0] + m,
-                y2: b2[1] + m
-            },
-            {
-                cor: "#05F2F2",
-                sombra: "#027373"
-            }
-        ]
-    }
-    //faz forma S
-    if (f === 2) {
-        a = a % 2
-        if (a === 1) {
-            return [{
-                    x: b17[0],
-                    y: b17[1],
-                    x2: b17[0] + m,
-                    y2: b17[1] + m
-                },
-                {
-                    x: b11[0],
-                    y: b11[1],
-                    x2: b11[0] + m,
-                    y2: b11[1] + m
-                },
-                {
-                    x: b6[0],
-                    y: b6[1],
-                    x2: b6[0] + m,
-                    y2: b6[1] + m
-                },
-                {
-                    x: b12[0],
-                    y: b12[1],
-                    x2: b12[0] + m,
-                    y2: b12[1] + m
-                },
-                {
-                    cor: "#F60100",
-                    sombra: "#750000"
-                }
-            ]
-        }
-        return [{
-                x: b17[0],
-                y: b17[1],
-                x2: b17[0] + m,
-                y2: b17[1] + m
-            },
-            {
-                x: b16[0],
-                y: b16[1],
-                x2: b16[0] + m,
-                y2: b16[1] + m
-            },
-            {
-                x: b12[0],
-                y: b12[1],
-                x2: b12[0] + m,
-                y2: b12[1] + m
-            },
-            {
-                x: b13[0],
-                y: b13[1],
-                x2: b13[0] + m,
-                y2: b13[1] + m
-            },
-            {
-                cor: "#F60100",
-                sombra: "#750000"
-            }
-        ]
-    }
-    //faz forma Z
-    if (f === 3) {
-        a = a % 2
-        if (a === 1) {
-            return [{
-                    x: b17[0],
-                    y: b17[1],
-                    x2: b17[0] + m,
-                    y2: b17[1] + m
-                },
-                {
-                    x: b12[0],
-                    y: b12[1],
-                    x2: b12[0] + m,
-                    y2: b12[1] + m
-                },
-                {
-                    x: b8[0],
-                    y: b8[1],
-                    x2: b8[0] + m,
-                    y2: b8[1] + m
-                },
-                {
-                    x: b13[0],
-                    y: b13[1],
-                    x2: b13[0] + m,
-                    y2: b13[1] + m
-                },
-                {
-                    cor: "#67B523",
-                    sombra: "#1E360A"
-                }
-            ]
-        }
-        return [{
-                x: b17[0],
-                y: b17[1],
-                x2: b17[0] + m,
-                y2: b17[1] + m
-            },
-            {
-                x: b11[0],
-                y: b11[1],
-                x2: b11[0] + m,
-                y2: b11[1] + m
-            },
-            {
-                x: b12[0],
-                y: b12[1],
-                x2: b12[0] + m,
-                y2: b12[1] + m
-            },
-            {
-                x: b18[0],
-                y: b18[1],
-                x2: b18[0] + m,
-                y2: b18[1] + m
-            },
-            {
-                cor: "#67B523",
-                sombra: "#1E360A"
-            }
-        ]
-    }
-    //faz forma L
-    if (f === 4) {
-        if (a === 1) {
-            return [{
-                    x: b17[0],
-                    y: b17[1],
-                    x2: b17[0] + m,
-                    y2: b17[1] + m
-                },
-                {
-                    x: b12[0],
-                    y: b12[1],
-                    x2: b12[0] + m,
-                    y2: b12[1] + m
-                },
-                {
-                    x: b13[0],
-                    y: b13[1],
-                    x2: b13[0] + m,
-                    y2: b13[1] + m
-                },
-                {
-                    x: b14[0],
-                    y: b14[1],
-                    x2: b14[0] + m,
-                    y2: b14[1] + m
-                },
-                {
-                    cor: "#F27405",
-                    sombra: "#733702"
-                }
-            ]
-        }
-        if (a === 2) {
-            return [{
-                    x: b17[0],
-                    y: b17[1],
-                    x2: b17[0] + m,
-                    y2: b17[1] + m
-                },
-                {
-                    x: b6[0],
-                    y: b6[1],
-                    x2: b6[0] + m,
-                    y2: b6[1] + m
-                },
-                {
-                    x: b7[0],
-                    y: b7[1],
-                    x2: b7[0] + m,
-                    y2: b7[1] + m
-                },
-                {
-                    x: b12[0],
-                    y: b12[1],
-                    x2: b12[0] + m,
-                    y2: b12[1] + m
-                },
-                {
-                    cor: "#F27405",
-                    sombra: "#733702"
-                }
-            ]
-        }
-        if (a === 3) {
-            return [{
-                    x: b17[0],
-                    y: b17[1],
-                    x2: b17[0] + m,
-                    y2: b17[1] + m
-                },
-                {
-                    x: b16[0],
-                    y: b16[1],
-                    x2: b16[0] + m,
-                    y2: b16[1] + m
-                },
-                {
-                    x: b13[0],
-                    y: b13[1],
-                    x2: b13[0] + m,
-                    y2: b13[1] + m
-                },
-                {
-                    x: b18[0],
-                    y: b18[1],
-                    x2: b18[0] + m,
-                    y2: b18[1] + m
-                },
-                {
-                    cor: "#F27405",
-                    sombra: "#733702"
-                }
-            ]
-        }
-        return [{
-                x: b17[0],
-                y: b17[1],
-                x2: b17[0] + m,
-                y2: b17[1] + m
-            },
-            {
-                x: b12[0],
-                y: b12[1],
-                x2: b12[0] + m,
-                y2: b12[1] + m
-            },
-            {
-                x: b7[0],
-                y: b7[1],
-                x2: b7[0] + m,
-                y2: b7[1] + m
-            },
-            {
-                x: b18[0],
-                y: b18[1],
-                x2: b18[0] + m,
-                y2: b18[1] + m
-            },
-            {
-                cor: "#F27405",
-                sombra: "#733702"
-            }
-        ]
-    }
-    //faz forma J
-    if (f === 5) {
-        if (a === 1) {
-            return [{
-                    x: b17[0],
-                    y: b17[1],
-                    x2: b17[0] + m,
-                    y2: b17[1] + m
-                },
-                {
-                    x: b16[0],
-                    y: b16[1],
-                    x2: b16[0] + m,
-                    y2: b16[1] + m
-                },
-                {
-                    x: b11[0],
-                    y: b11[1],
-                    x2: b11[0] + m,
-                    y2: b11[1] + m
-                },
-                {
-                    x: b18[0],
-                    y: b18[1],
-                    x2: b18[0] + m,
-                    y2: b18[1] + m
-                },
-                {
-                    cor: "#FD50BB",
-                    sombra: "#7D285C"
-                }
-            ]
-        }
-        if (a === 2) {
-            return [{
-                    x: b17[0],
-                    y: b17[1],
-                    x2: b17[0] + m,
-                    y2: b17[1] + m
-                },
-                {
-                    x: b12[0],
-                    y: b12[1],
-                    x2: b12[0] + m,
-                    y2: b12[1] + m
-                },
-                {
-                    x: b7[0],
-                    y: b7[1],
-                    x2: b7[0] + m,
-                    y2: b7[1] + m
-                },
-                {
-                    x: b8[0],
-                    y: b8[1],
-                    x2: b8[0] + m,
-                    y2: b8[1] + m
-                },
-                {
-                    cor: "#FD50BB",
-                    sombra: "#7D285C"
-                }
-            ]
-        }
-        if (a === 3) {
-            return [{
-                    x: b17[0],
-                    y: b17[1],
-                    x2: b17[0] + m,
-                    y2: b17[1] + m
-                },
-                {
-                    x: b10[0],
-                    y: b10[1],
-                    x2: b10[0] + m,
-                    y2: b10[1] + m
-                },
-                {
-                    x: b11[0],
-                    y: b11[1],
-                    x2: b11[0] + m,
-                    y2: b11[1] + m
-                },
-                {
-                    x: b12[0],
-                    y: b12[1],
-                    x2: b12[0] + m,
-                    y2: b12[1] + m
-                },
-                {
-                    cor: "#FD50BB",
-                    sombra: "#7D285C"
-                }
-            ]
-        }
-        return [{
-                x: b17[0],
-                y: b17[1],
-                x2: b17[0] + m,
-                y2: b17[1] + m
-            },
-            {
-                x: b16[0],
-                y: b16[1],
-                x2: b16[0] + m,
-                y2: b16[1] + m
-            },
-            {
-                x: b7[0],
-                y: b7[1],
-                x2: b7[0] + m,
-                y2: b7[1] + m
-            },
-            {
-                x: b12[0],
-                y: b12[1],
-                x2: b12[0] + m,
-                y2: b12[1] + m
-            },
-            {
-                cor: "#FD50BB",
-                sombra: "#7D285C"
-            }
-        ]
-    }
-    //faz forma J
-    if (f === 6) {
-        if (a === 1) {
-            return [{
-                    x: b17[0],
-                    y: b17[1],
-                    x2: b17[0] + m,
-                    y2: b17[1] + m
-                },
-                {
-                    x: b11[0],
-                    y: b11[1],
-                    x2: b11[0] + m,
-                    y2: b11[1] + m
-                },
-                {
-                    x: b7[0],
-                    y: b7[1],
-                    x2: b7[0] + m,
-                    y2: b7[1] + m
-                },
-                {
-                    x: b12[0],
-                    y: b12[1],
-                    x2: b12[0] + m,
-                    y2: b12[1] + m
-                },
-                {
-                    cor: "#9E0095",
-                    sombra: "#5E005A"
-                }
-            ]
-        }
-        if (a === 2) {
-            return [{
-                    x: b17[0],
-                    y: b17[1],
-                    x2: b17[0] + m,
-                    y2: b17[1] + m
-                },
-                {
-                    x: b16[0],
-                    y: b16[1],
-                    x2: b16[0] + m,
-                    y2: b16[1] + m
-                },
-                {
-                    x: b12[0],
-                    y: b12[1],
-                    x2: b12[0] + m,
-                    y2: b12[1] + m
-                },
-                {
-                    x: b18[0],
-                    y: b18[1],
-                    x2: b18[0] + m,
-                    y2: b18[1] + m
-                },
-                {
-                    cor: "#9E0095",
-                    sombra: "#5E005A"
-                }
-            ]
-        }
-        if (a === 3) {
-            return [{
-                    x: b17[0],
-                    y: b17[1],
-                    x2: b17[0] + m,
-                    y2: b17[1] + m
-                },
-                {
-                    x: b12[0],
-                    y: b12[1],
-                    x2: b12[0] + m,
-                    y2: b12[1] + m
-                },
-                {
-                    x: b7[0],
-                    y: b7[1],
-                    x2: b7[0] + m,
-                    y2: b7[1] + m
-                },
-                {
-                    x: b13[0],
-                    y: b13[1],
-                    x2: b13[0] + m,
-                    y2: b13[1] + m
-                },
-                {
-                    cor: "#9E0095",
-                    sombra: "#5E005A"
-                }
-            ]
-        }
-        return [{
-                x: b17[0],
-                y: b17[1],
-                x2: b17[0] + m,
-                y2: b17[1] + m
-            },
-            {
-                x: b11[0],
-                y: b11[1],
-                x2: b11[0] + m,
-                y2: b11[1] + m
-            },
-            {
-                x: b12[0],
-                y: b12[1],
-                x2: b12[0] + m,
-                y2: b12[1] + m
-            },
-            {
-                x: b13[0],
-                y: b13[1],
-                x2: b13[0] + m,
-                y2: b13[1] + m
-            },
-            {
-                cor: "#9E0095",
-                sombra: "#5E005A"
-            }
-        ]
-    }
-}
+// const fazFormas = (x, y, f, a) => {
+//     //console.count("fazFormas")
+//     //let t = tamanho 
+//     const fms = [
+//         [],
+//         [],
+//         [x, y - (t * 3)],
+//         [],
+//         [],
+//         [],
+//         [x - t, y - (t * 2)],
+//         [x, y - (t * 2)],
+//         [x + t, y - (t * 2)],
+//         [],
+//         [x - (t * 2), y - t],
+//         [x - t, y - t],
+//         [x, y - t],
+//         [x + t, y - t],
+//         [x + (t * 2), y - t],
+//         [x - (t * 2), y],
+//         [x - t, y],
+//         [x, y],
+//         [x + t, y],
+//         [x + (t * 2), y]
+//     ]
+//     const [
+//         b0, b1, b2, b3, b4,
+//         b5, b6, b7, b8, b9,
+//         b10, b11, b12, b13, b14,
+//         b15, b16, b17, b18, b19
+//     ] = fms
+//     //faz forma O
+//     if (f === 0) {
+//         return [{
+//                 x: b17[0],
+//                 y: b17[1],
+//                 x2: b17[0] + m,
+//                 y2: b17[1] + m
+//             },
+//             {
+//                 x: b16[0],
+//                 y: b16[1],
+//                 x2: b16[0] + m,
+//                 y2: b16[1] + m
+//             },
+//             {
+//                 x: b11[0],
+//                 y: b11[1],
+//                 x2: b11[0] + m,
+//                 y2: b11[1] + m
+//             },
+//             {
+//                 x: b12[0],
+//                 y: b12[1],
+//                 x2: b12[0] + m,
+//                 y2: b12[1] + m
+//             },
+//             {
+//                 cor: "#F9FF00",
+//                 sombra: "#7D8000"
+//             }
+//         ]
+//     }
+//     //faz forma I
+//     if (f === 1) {
+//         a = a % 2
+//         if (a === 1) {
+//             return [{
+//                     x: b17[0],
+//                     y: b17[1],
+//                     x2: b17[0] + m,
+//                     y2: b17[1] + m
+//                 },
+//                 {
+//                     x: b15[0],
+//                     y: b15[1],
+//                     x2: b15[0] + m,
+//                     y2: b15[1] + m
+//                 },
+//                 {
+//                     x: b16[0],
+//                     y: b16[1],
+//                     x2: b16[0] + m,
+//                     y2: b16[1] + m
+//                 },
+//                 {
+//                     x: b18[0],
+//                     y: b18[1],
+//                     x2: b18[0] + m,
+//                     y2: b18[1] + m
+//                 },
+//                 {
+//                     cor: "#05F2F2",
+//                     sombra: "#027373"
+//                 }
+//             ]
+//         }
+//         return [{
+//                 x: b17[0],
+//                 y: b17[1],
+//                 x2: b17[0] + m,
+//                 y2: b17[1] + m
+//             },
+//             {
+//                 x: b12[0],
+//                 y: b12[1],
+//                 x2: b12[0] + m,
+//                 y2: b12[1] + m
+//             },
+//             {
+//                 x: b7[0],
+//                 y: b7[1],
+//                 x2: b7[0] + m,
+//                 y2: b7[1] + m
+//             },
+//             {
+//                 x: b2[0],
+//                 y: b2[1],
+//                 x2: b2[0] + m,
+//                 y2: b2[1] + m
+//             },
+//             {
+//                 cor: "#05F2F2",
+//                 sombra: "#027373"
+//             }
+//         ]
+//     }
+//     //faz forma S
+//     if (f === 2) {
+//         a = a % 2
+//         if (a === 1) {
+//             return [{
+//                     x: b17[0],
+//                     y: b17[1],
+//                     x2: b17[0] + m,
+//                     y2: b17[1] + m
+//                 },
+//                 {
+//                     x: b11[0],
+//                     y: b11[1],
+//                     x2: b11[0] + m,
+//                     y2: b11[1] + m
+//                 },
+//                 {
+//                     x: b6[0],
+//                     y: b6[1],
+//                     x2: b6[0] + m,
+//                     y2: b6[1] + m
+//                 },
+//                 {
+//                     x: b12[0],
+//                     y: b12[1],
+//                     x2: b12[0] + m,
+//                     y2: b12[1] + m
+//                 },
+//                 {
+//                     cor: "#F60100",
+//                     sombra: "#750000"
+//                 }
+//             ]
+//         }
+//         return [{
+//                 x: b17[0],
+//                 y: b17[1],
+//                 x2: b17[0] + m,
+//                 y2: b17[1] + m
+//             },
+//             {
+//                 x: b16[0],
+//                 y: b16[1],
+//                 x2: b16[0] + m,
+//                 y2: b16[1] + m
+//             },
+//             {
+//                 x: b12[0],
+//                 y: b12[1],
+//                 x2: b12[0] + m,
+//                 y2: b12[1] + m
+//             },
+//             {
+//                 x: b13[0],
+//                 y: b13[1],
+//                 x2: b13[0] + m,
+//                 y2: b13[1] + m
+//             },
+//             {
+//                 cor: "#F60100",
+//                 sombra: "#750000"
+//             }
+//         ]
+//     }
+//     //faz forma Z
+//     if (f === 3) {
+//         a = a % 2
+//         if (a === 1) {
+//             return [{
+//                     x: b17[0],
+//                     y: b17[1],
+//                     x2: b17[0] + m,
+//                     y2: b17[1] + m
+//                 },
+//                 {
+//                     x: b12[0],
+//                     y: b12[1],
+//                     x2: b12[0] + m,
+//                     y2: b12[1] + m
+//                 },
+//                 {
+//                     x: b8[0],
+//                     y: b8[1],
+//                     x2: b8[0] + m,
+//                     y2: b8[1] + m
+//                 },
+//                 {
+//                     x: b13[0],
+//                     y: b13[1],
+//                     x2: b13[0] + m,
+//                     y2: b13[1] + m
+//                 },
+//                 {
+//                     cor: "#67B523",
+//                     sombra: "#1E360A"
+//                 }
+//             ]
+//         }
+//         return [{
+//                 x: b17[0],
+//                 y: b17[1],
+//                 x2: b17[0] + m,
+//                 y2: b17[1] + m
+//             },
+//             {
+//                 x: b11[0],
+//                 y: b11[1],
+//                 x2: b11[0] + m,
+//                 y2: b11[1] + m
+//             },
+//             {
+//                 x: b12[0],
+//                 y: b12[1],
+//                 x2: b12[0] + m,
+//                 y2: b12[1] + m
+//             },
+//             {
+//                 x: b18[0],
+//                 y: b18[1],
+//                 x2: b18[0] + m,
+//                 y2: b18[1] + m
+//             },
+//             {
+//                 cor: "#67B523",
+//                 sombra: "#1E360A"
+//             }
+//         ]
+//     }
+//     //faz forma L
+//     if (f === 4) {
+//         if (a === 1) {
+//             return [{
+//                     x: b17[0],
+//                     y: b17[1],
+//                     x2: b17[0] + m,
+//                     y2: b17[1] + m
+//                 },
+//                 {
+//                     x: b12[0],
+//                     y: b12[1],
+//                     x2: b12[0] + m,
+//                     y2: b12[1] + m
+//                 },
+//                 {
+//                     x: b13[0],
+//                     y: b13[1],
+//                     x2: b13[0] + m,
+//                     y2: b13[1] + m
+//                 },
+//                 {
+//                     x: b14[0],
+//                     y: b14[1],
+//                     x2: b14[0] + m,
+//                     y2: b14[1] + m
+//                 },
+//                 {
+//                     cor: "#F27405",
+//                     sombra: "#733702"
+//                 }
+//             ]
+//         }
+//         if (a === 2) {
+//             return [{
+//                     x: b17[0],
+//                     y: b17[1],
+//                     x2: b17[0] + m,
+//                     y2: b17[1] + m
+//                 },
+//                 {
+//                     x: b6[0],
+//                     y: b6[1],
+//                     x2: b6[0] + m,
+//                     y2: b6[1] + m
+//                 },
+//                 {
+//                     x: b7[0],
+//                     y: b7[1],
+//                     x2: b7[0] + m,
+//                     y2: b7[1] + m
+//                 },
+//                 {
+//                     x: b12[0],
+//                     y: b12[1],
+//                     x2: b12[0] + m,
+//                     y2: b12[1] + m
+//                 },
+//                 {
+//                     cor: "#F27405",
+//                     sombra: "#733702"
+//                 }
+//             ]
+//         }
+//         if (a === 3) {
+//             return [{
+//                     x: b17[0],
+//                     y: b17[1],
+//                     x2: b17[0] + m,
+//                     y2: b17[1] + m
+//                 },
+//                 {
+//                     x: b16[0],
+//                     y: b16[1],
+//                     x2: b16[0] + m,
+//                     y2: b16[1] + m
+//                 },
+//                 {
+//                     x: b13[0],
+//                     y: b13[1],
+//                     x2: b13[0] + m,
+//                     y2: b13[1] + m
+//                 },
+//                 {
+//                     x: b18[0],
+//                     y: b18[1],
+//                     x2: b18[0] + m,
+//                     y2: b18[1] + m
+//                 },
+//                 {
+//                     cor: "#F27405",
+//                     sombra: "#733702"
+//                 }
+//             ]
+//         }
+//         return [{
+//                 x: b17[0],
+//                 y: b17[1],
+//                 x2: b17[0] + m,
+//                 y2: b17[1] + m
+//             },
+//             {
+//                 x: b12[0],
+//                 y: b12[1],
+//                 x2: b12[0] + m,
+//                 y2: b12[1] + m
+//             },
+//             {
+//                 x: b7[0],
+//                 y: b7[1],
+//                 x2: b7[0] + m,
+//                 y2: b7[1] + m
+//             },
+//             {
+//                 x: b18[0],
+//                 y: b18[1],
+//                 x2: b18[0] + m,
+//                 y2: b18[1] + m
+//             },
+//             {
+//                 cor: "#F27405",
+//                 sombra: "#733702"
+//             }
+//         ]
+//     }
+//     //faz forma J
+//     if (f === 5) {
+//         if (a === 1) {
+//             return [{
+//                     x: b17[0],
+//                     y: b17[1],
+//                     x2: b17[0] + m,
+//                     y2: b17[1] + m
+//                 },
+//                 {
+//                     x: b16[0],
+//                     y: b16[1],
+//                     x2: b16[0] + m,
+//                     y2: b16[1] + m
+//                 },
+//                 {
+//                     x: b11[0],
+//                     y: b11[1],
+//                     x2: b11[0] + m,
+//                     y2: b11[1] + m
+//                 },
+//                 {
+//                     x: b18[0],
+//                     y: b18[1],
+//                     x2: b18[0] + m,
+//                     y2: b18[1] + m
+//                 },
+//                 {
+//                     cor: "#FD50BB",
+//                     sombra: "#7D285C"
+//                 }
+//             ]
+//         }
+//         if (a === 2) {
+//             return [{
+//                     x: b17[0],
+//                     y: b17[1],
+//                     x2: b17[0] + m,
+//                     y2: b17[1] + m
+//                 },
+//                 {
+//                     x: b12[0],
+//                     y: b12[1],
+//                     x2: b12[0] + m,
+//                     y2: b12[1] + m
+//                 },
+//                 {
+//                     x: b7[0],
+//                     y: b7[1],
+//                     x2: b7[0] + m,
+//                     y2: b7[1] + m
+//                 },
+//                 {
+//                     x: b8[0],
+//                     y: b8[1],
+//                     x2: b8[0] + m,
+//                     y2: b8[1] + m
+//                 },
+//                 {
+//                     cor: "#FD50BB",
+//                     sombra: "#7D285C"
+//                 }
+//             ]
+//         }
+//         if (a === 3) {
+//             return [{
+//                     x: b17[0],
+//                     y: b17[1],
+//                     x2: b17[0] + m,
+//                     y2: b17[1] + m
+//                 },
+//                 {
+//                     x: b10[0],
+//                     y: b10[1],
+//                     x2: b10[0] + m,
+//                     y2: b10[1] + m
+//                 },
+//                 {
+//                     x: b11[0],
+//                     y: b11[1],
+//                     x2: b11[0] + m,
+//                     y2: b11[1] + m
+//                 },
+//                 {
+//                     x: b12[0],
+//                     y: b12[1],
+//                     x2: b12[0] + m,
+//                     y2: b12[1] + m
+//                 },
+//                 {
+//                     cor: "#FD50BB",
+//                     sombra: "#7D285C"
+//                 }
+//             ]
+//         }
+//         return [{
+//                 x: b17[0],
+//                 y: b17[1],
+//                 x2: b17[0] + m,
+//                 y2: b17[1] + m
+//             },
+//             {
+//                 x: b16[0],
+//                 y: b16[1],
+//                 x2: b16[0] + m,
+//                 y2: b16[1] + m
+//             },
+//             {
+//                 x: b7[0],
+//                 y: b7[1],
+//                 x2: b7[0] + m,
+//                 y2: b7[1] + m
+//             },
+//             {
+//                 x: b12[0],
+//                 y: b12[1],
+//                 x2: b12[0] + m,
+//                 y2: b12[1] + m
+//             },
+//             {
+//                 cor: "#FD50BB",
+//                 sombra: "#7D285C"
+//             }
+//         ]
+//     }
+//     //faz forma J
+//     if (f === 6) {
+//         if (a === 1) {
+//             return [{
+//                     x: b17[0],
+//                     y: b17[1],
+//                     x2: b17[0] + m,
+//                     y2: b17[1] + m
+//                 },
+//                 {
+//                     x: b11[0],
+//                     y: b11[1],
+//                     x2: b11[0] + m,
+//                     y2: b11[1] + m
+//                 },
+//                 {
+//                     x: b7[0],
+//                     y: b7[1],
+//                     x2: b7[0] + m,
+//                     y2: b7[1] + m
+//                 },
+//                 {
+//                     x: b12[0],
+//                     y: b12[1],
+//                     x2: b12[0] + m,
+//                     y2: b12[1] + m
+//                 },
+//                 {
+//                     cor: "#9E0095",
+//                     sombra: "#5E005A"
+//                 }
+//             ]
+//         }
+//         if (a === 2) {
+//             return [{
+//                     x: b17[0],
+//                     y: b17[1],
+//                     x2: b17[0] + m,
+//                     y2: b17[1] + m
+//                 },
+//                 {
+//                     x: b16[0],
+//                     y: b16[1],
+//                     x2: b16[0] + m,
+//                     y2: b16[1] + m
+//                 },
+//                 {
+//                     x: b12[0],
+//                     y: b12[1],
+//                     x2: b12[0] + m,
+//                     y2: b12[1] + m
+//                 },
+//                 {
+//                     x: b18[0],
+//                     y: b18[1],
+//                     x2: b18[0] + m,
+//                     y2: b18[1] + m
+//                 },
+//                 {
+//                     cor: "#9E0095",
+//                     sombra: "#5E005A"
+//                 }
+//             ]
+//         }
+//         if (a === 3) {
+//             return [{
+//                     x: b17[0],
+//                     y: b17[1],
+//                     x2: b17[0] + m,
+//                     y2: b17[1] + m
+//                 },
+//                 {
+//                     x: b12[0],
+//                     y: b12[1],
+//                     x2: b12[0] + m,
+//                     y2: b12[1] + m
+//                 },
+//                 {
+//                     x: b7[0],
+//                     y: b7[1],
+//                     x2: b7[0] + m,
+//                     y2: b7[1] + m
+//                 },
+//                 {
+//                     x: b13[0],
+//                     y: b13[1],
+//                     x2: b13[0] + m,
+//                     y2: b13[1] + m
+//                 },
+//                 {
+//                     cor: "#9E0095",
+//                     sombra: "#5E005A"
+//                 }
+//             ]
+//         }
+//         return [{
+//                 x: b17[0],
+//                 y: b17[1],
+//                 x2: b17[0] + m,
+//                 y2: b17[1] + m
+//             },
+//             {
+//                 x: b11[0],
+//                 y: b11[1],
+//                 x2: b11[0] + m,
+//                 y2: b11[1] + m
+//             },
+//             {
+//                 x: b12[0],
+//                 y: b12[1],
+//                 x2: b12[0] + m,
+//                 y2: b12[1] + m
+//             },
+//             {
+//                 x: b13[0],
+//                 y: b13[1],
+//                 x2: b13[0] + m,
+//                 y2: b13[1] + m
+//             },
+//             {
+//                 cor: "#9E0095",
+//                 sombra: "#5E005A"
+//             }
+//         ]
+//     }
+// }
 
 function Random(min, max) {
     console.count("Random")
@@ -882,10 +888,6 @@ const animaPonto = (cord) => {
 
 }
 
-let px = 30
-let py = 80
-let dpy = 480
-
 const desenha = () => {
     if (!iniciou) {
         //ctx.fillStyle = "rgba(51,51,51,.5)" 
@@ -955,16 +957,16 @@ const desenha = () => {
         ctx.fillStyle = "#ddd"
         if (DEBUG.checked) {
             ctx.font = `bold 30px Monospace `
-            ctx.fillText("index: " + i, px, 2 * py + i * dpy)
-            ctx.fillText("X " + x, px, 3 * py + i * dpy)
-            ctx.fillText("Y " + y, px, 4 * py + i * dpy)
-            ctx.fillText("x2 " + x2, px, 5 * py + i * dpy)
-            ctx.fillText("y2 " + y2, px, 6 * py + i * dpy)
-            ctx.fillText(x2 - x, px + 150, 5 * py + i * dpy)
-            ctx.fillText(y2 - y, px + 150, 6 * py + i * dpy)
-            ctx.fillText("ângulo:" + angulo, px, py)
-            ctx.fillText("posx:" + posx, px + 200, py)
-            ctx.fillText("posy:" + posy, px + 400, py)
+            ctx.fillText("index: " + i, paddingX, 2 * paddingY + i * paddingYExtra)
+            ctx.fillText("X " + x, paddingX, 3 * paddingY + i * paddingYExtra)
+            ctx.fillText("Y " + y, paddingX, 4 * paddingY + i * paddingYExtra)
+            ctx.fillText("x2 " + x2, paddingX, 5 * paddingY + i * paddingYExtra)
+            ctx.fillText("y2 " + y2, paddingX, 6 * paddingY + i * paddingYExtra)
+            ctx.fillText(x2 - x, paddingX + 150, 5 * paddingY + i * paddingYExtra)
+            ctx.fillText(y2 - y, paddingX + 150, 6 * paddingY + i * paddingYExtra)
+            ctx.fillText("ângulo:" + angulo, paddingX, paddingY)
+            ctx.fillText("posx:" + posx, paddingX + 200, paddingY)
+            ctx.fillText("posy:" + posy, paddingX + 400, paddingY)
             ctx.font = `bold 80px Monospace `
             ctx.fillText(i, x + 20, y + 85)
         }
@@ -1085,7 +1087,7 @@ const colidiuBaixo = (forma, objs, tam) => {
     return false
 }
 
-const esp = () => {
+const gira = () => {
     if (!iniciou) return
     let prxangulo = angulo == 3 ? 0 : angulo + 1
     if (colidiuGiro(fazFormas(posx, posy, formaAtual, prxangulo), objetos, t)) {
@@ -1094,13 +1096,13 @@ const esp = () => {
     angulo < 3 ? angulo += 1 : angulo = 0
 }
 
-const c = () => {
+const moveCima = () => {
     if (!iniciou) return
     posy -= t
     // desenha()
 }
 
-const b = () => {
+const moveBaixo = () => {
     if (!iniciou) return
     if (colidiuBaixo(fazFormas(posx, posy, formaAtual, angulo), objetos, t)) {
         return
@@ -1108,7 +1110,7 @@ const b = () => {
     posy += t
 }
 
-const e = () => {
+const moveEsquerda = () => {
     if (!iniciou) return
     if (colidiuEsquerda(fazFormas(posx, posy, formaAtual, angulo), objetos)) {
         return
@@ -1120,7 +1122,7 @@ const e = () => {
     // desenha()
 }
 
-const d = () => {
+const moveDireita = () => {
     if (!iniciou) return
     if (colidiuDireita(fazFormas(posx, posy, formaAtual, angulo), objetos)) {
         return
@@ -1140,25 +1142,29 @@ const pausar = () => {
     iniciou = true
 }
 
+const chamaFuncao = (key) => {
+    const keys = {
+        "ArrowUp" : moveCima,
+        "ArrowLeft" : moveEsquerda,
+        "ArrowDown" : moveBaixo,
+        "ArrowRight" : moveDireita,
+        "Space" : gira,
+        "KeyP" : pausar,
+        "KeyR" : reset,
+    }
+    return keys[key]
+}
 
 BODY.addEventListener("keydown", (evt) => {
-    if (evt.code == "ArrowUp") {
-        c()
-    }
-    if (evt.code == "ArrowLeft") {
-        e()
-    }
-    if (evt.code == "ArrowDown") {
-        b()
-    }
-    if (evt.code == "ArrowRight") {
-        d()
-    }
-    if (evt.code == "Space") {
-        esp()
-    }
-    //console.log(evt.code )
-});
+    chamaFuncao(evt.code)()
+})
+
+BTNS.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        const BUTTONKEY = e.target.dataset.buttonKey
+        chamaFuncao(BUTTONKEY)()
+    })
+})
 
 setInterval(desenha, attTela)
 
