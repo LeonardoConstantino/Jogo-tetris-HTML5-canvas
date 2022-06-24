@@ -71,11 +71,16 @@ main {
 }
 
 #debug {
-    /* width: 100%; */
     opacity: 0.2;
     transition: 0.4s;
   }
   
+  label{
+    padding: 1em;
+    font-family: 'Press Start 2P', cursive;
+    font-size: .6em;
+    transition: 0.4s;
+  }
   label:hover #debug{
     opacity: 1;
   }
@@ -83,6 +88,7 @@ main {
     /* opacity: 1; */
     color: #9E9E9E;
     font-family: 'Press Start 2P', cursive;
+    font-size: .6em;
   }
 
 #cvspxm {
