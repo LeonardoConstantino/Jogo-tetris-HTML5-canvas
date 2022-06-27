@@ -165,6 +165,11 @@ const removeObjetos = (cord) => {
             objetos.splice(i, 1)
         }
     })
+    objetos.forEach((obj, i) => {
+        if (obj.y == cord) {
+            objetos.splice(i, 1)
+        }
+    })
     objetos = objetos.map(f => {
         return {
             x: f.x,
