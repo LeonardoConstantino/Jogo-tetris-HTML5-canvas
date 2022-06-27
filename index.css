@@ -73,23 +73,25 @@ main {
 #debug {
     opacity: 0.2;
     transition: 0.4s;
-  }
-  
-  label{
+}
+
+label {
     padding: 1em;
     font-family: 'Press Start 2P', cursive;
     font-size: .6em;
     transition: 0.4s;
-  }
-  label:hover #debug{
+}
+
+label:hover #debug {
     opacity: 1;
-  }
-  label:hover{
+}
+
+label:hover {
     /* opacity: 1; */
     color: #9E9E9E;
     font-family: 'Press Start 2P', cursive;
     font-size: .6em;
-  }
+}
 
 #cvspxm {
     border: solid 1px red;
@@ -160,10 +162,34 @@ canvas {
 }
 
 .game>button {
-    border-radius: 50%;
+    /* border-radius: 50%; */
     padding: 10px;
     height: 30px;
     /*width: 60px;*/
+}
+
+.game>button.pausar>i{
+    border: 7px solid transparent;
+    border-top: 7px solid #121212;
+    border-right: 7px solid #121212;
+    transform: rotate(45deg);
+    position: relative;
+    
+}
+.game>button.pausar>i::after{
+    content: "";
+    position: absolute;
+    top: -6px;
+    right: 1px;
+    width: 4px;
+    height: 17px;
+    background-color: #121212;
+    transform: rotate(-45deg);
+}
+.game>button.reset>i{
+    width: 15px;
+    height: 15px;
+    background-color: #121212;
 }
 
 .setas>div {
