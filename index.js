@@ -208,8 +208,8 @@ const desenha = () => {
         ctx.fillText("Aperte o play", 500, 950)
         ctx.fillText(`para ${palavraCerta}`, 500, 1130)
         if (perdeu) {
-            ctx.fillText("voce marcou", 100, 1310)
-            ctx.fillText(pontos + " pontos!", 200, 1450)
+            ctx.fillText("voce marcou", 500, 1310)
+            ctx.fillText(pontos + " pontos!", 500, 1450)
         }
         ctx.restore()
         return
