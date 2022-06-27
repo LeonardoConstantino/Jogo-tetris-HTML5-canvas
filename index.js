@@ -1,26 +1,10 @@
 import fazFormas from './scripts/funcao fazFormas.js'
 
-import {
-    largura,
-    altura,
-    paddingX,
-    paddingY,
-    paddingYExtra,
-    t,
-    dificuldade,
-} from './scripts/constantes de controle.js'
+import { largura, altura, paddingX, paddingY, paddingYExtra, t,  dificuldade, }
+    from './scripts/constantes de controle.js'
 
-import {
-    BODY,
-    PONTOS,
-    RECORDE,
-    BTNS,
-    DEBUG,
-    canvas,
-    ctx,
-    canvas2,
-    ctx2
-} from './scripts/constantes do DOM.js'
+import { BODY, PONTOS, RECORDE, BTNS, DEBUG, canvas, ctx, canvas2, ctx2 }
+    from './scripts/constantes do DOM.js'
 
 //tamanho do canvas
 canvas.width = largura
@@ -33,6 +17,7 @@ let perdeu = false
 let posx = 500
 let posy = -200
 let attTela = 500
+let intervalo
 let pontos = 0
 let angulo = Math.floor((Math.random() * 4))
 let formaAtual = Math.floor((Math.random() * 7))
@@ -45,7 +30,6 @@ RECORDE.innerHTML = recorde < 10 ? "0" + recorde : recorde
 
 const atualizaPontos = () => {
     pontos += 1
-    attDificuldade()
     PONTOS.innerHTML = pontos < 10 ? "0" + pontos : pontos
     if (pontos > recorde) {
         atualizaRecorde(pontos)
@@ -134,22 +118,24 @@ const novaForma = () => {
 }
 
 const atualiza = () => {
+    const forma = fazFormas(posx, posy, formaAtual, angulo)
     if (objetos.some(obj => obj.y <= 0)) {
         perdeu = true
         iniciou = false
+        desenha()
         reset()
         return
     }
-    if (colidiuBaixo(fazFormas(posx, posy, formaAtual, angulo), objetos, t)) {
+    if (colidiuBaixo(forma , objetos, t)) {
         novaForma()
         return
     }
     posy += 100
     let [pontuou, cord] = marcouPonto()
     if (pontuou) {
-        animaPonto(cord)
+        animaPonto(cord, forma[4])
         atualizaPontos()
-        console.log(recorde)
+        atualizaDificuldade()
         return
     }
 }
@@ -164,7 +150,6 @@ const desenhaProxima = (forma, i) => {
 }
 
 const removeObjetos = (cord) => {
-    console.log(objetos)
     objetos.forEach((obj, i) => {
         if (obj.y == cord) {
             objetos.splice(i, 1)
@@ -192,11 +177,11 @@ const removeObjetos = (cord) => {
     })
 }
 
-const animaPonto = (cord) => {
-    console.count("animaPonto")
+const animaPonto = (cord, cores) => {
+    const { cor, sombra } = cores
     var gradientePonto = ctx.createLinearGradient(0, cord, largura, t)
-    gradientePonto.addColorStop(0, "#EBEBEB")
-    gradientePonto.addColorStop(1, "#121212")
+    gradientePonto.addColorStop(0, cor)
+    gradientePonto.addColorStop(1, sombra)
     ctx.fillStyle = gradientePonto
     ctx.fillRect(0, cord, largura, t)
     ctx.strokeRect(0, cord, largura, t)
@@ -205,14 +190,23 @@ const animaPonto = (cord) => {
 
 const desenha = () => {
     if (!iniciou) {
+        const posYInicial = -200
+        const palavraCerta = posy !== posYInicial ? "continuar" : "começar"
+        ctx.save()
+        ctx.shadowOffsetX = 0
+        ctx.shadowOffsetY = 0
+        ctx.shadowBlur = 7
+        ctx.shadowColor = 'rgba(0, 0, 0, 1)';
         ctx.fillStyle = "#ddd"
-        ctx.font = `70px 'Press Start 2P' `
-        ctx.fillText("Aperte o play", 50, 950)
-        ctx.fillText("para começar", 80, 1130)
+        ctx.textAlign = "center"
+        ctx.font = `65px 'Press Start 2P' `
+        ctx.fillText("Aperte o play", 500, 950)
+        ctx.fillText(`para ${palavraCerta}`, 500, 1130)
         if (perdeu) {
             ctx.fillText("voce marcou", 100, 1310)
             ctx.fillText(pontos + " pontos!", 200, 1450)
         }
+        ctx.restore()
         return
     }
     ctx.clearRect(0, 0, largura, altura)
@@ -282,7 +276,7 @@ const desenha = () => {
     atualiza()
 }
 
-let limeteDaForma = () => checkxMinMax(
+const limeteDaForma = () => checkxMinMax(
     fazFormas(posx, posy, formaAtual, angulo)
 )
 
@@ -427,6 +421,7 @@ const chamaFuncao = (key) => {
         "KeyP" : pausar,
         "KeyR" : reset,
     }
+    if (!keys[key]) return
     return keys[key]
 }
 
@@ -441,8 +436,10 @@ BTNS.forEach(btn => {
     })
 })
 
-const attDificuldade = ()=>{
-    setInterval(desenha, attTela)
+const atualizaDificuldade = ()=>{
+    clearInterval(intervalo)
+    console.log(attTela)
+    intervalo = setInterval(desenha, attTela)
     attTela -= dificuldade
 }
-attDificuldade()
+atualizaDificuldade()
