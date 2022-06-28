@@ -3,7 +3,7 @@ import fazFormas from './scripts/funcao fazFormas.js'
 import { largura, altura, paddingX, paddingY, paddingYExtra, t,  dificuldade, }
     from './scripts/constantes de controle.js'
 
-import { BODY, PONTOS, RECORDE, BTNS, DEBUG, canvas, ctx, canvas2, ctx2 }
+import { BODY, PONTOS, RECORDE, BTNS, DEBUG, AUDIOS, canvas, ctx, canvas2, ctx2 }
     from './scripts/constantes do DOM.js'
 
 //tamanho do canvas
@@ -12,8 +12,22 @@ canvas.height = altura
 canvas2.width = largura/100*60
 canvas2.height = largura/100*60
 
+const [
+    bateuBloco,
+    bateuParede,
+    clik,
+    fezPonto,
+    loopTema,
+    mover,
+    perdeuSemRecorde,
+    play,
+    pontoRecorde,
+    audioReset
+] = AUDIOS
+
 let iniciou = false
 let perdeu = false
+let semSom = false
 let posx = 500
 let posy = -200
 let attTela = 500
@@ -26,12 +40,14 @@ let objetos = []
 let recorde =
     localStorage.getItem('recorde') ?
     localStorage.getItem('recorde') : 0
+let recordeAnterior = recorde
 RECORDE.innerHTML = recorde < 10 ? "0" + recorde : recorde
 
 const atualizaPontos = () => {
     pontos += 1
     PONTOS.innerHTML = pontos < 10 ? "0" + pontos : pontos
     if (pontos > recorde) {
+        tocar_audio(pontoRecorde)
         atualizaRecorde(pontos)
     }
 }
@@ -42,6 +58,15 @@ const atualizaRecorde = (v) => {
         ? "0" + localStorage.getItem('recorde')
         : localStorage.getItem('recorde')
 }
+
+const tocar_audio =
+    (audio, volume = 1, loop, currentTime = '0') =>{
+        if (semSom) return
+        audio.currentTime = currentTime
+        audio.loop = loop
+        audio.volume = volume
+        audio.play()
+    }
 
 const reset = () => {
     iniciou = false
@@ -54,6 +79,8 @@ const reset = () => {
     formaAtual = Math.floor((Math.random() * 7))
     proximaForma = Math.floor((Math.random() * 7))
     pontos = 0
+    tocar_audio(audioReset, 0.2)
+    ctx.clearRect(0, 0, largura, altura)
 }
 
 const marcouPonto = () => {
@@ -127,12 +154,14 @@ const atualiza = () => {
         return
     }
     if (colidiuBaixo(forma , objetos, t)) {
+        tocar_audio(fezPonto, 1, false, 1,)
         novaForma()
         return
     }
     posy += 100
     let [pontuou, cord] = marcouPonto()
     if (pontuou) {
+        tocar_audio(fezPonto)
         animaPonto(cord, forma[4])
         atualizaPontos()
         atualizaDificuldade()
@@ -208,6 +237,12 @@ const desenha = () => {
         ctx.fillText("Aperte o play", 500, 950)
         ctx.fillText(`para ${palavraCerta}`, 500, 1130)
         if (perdeu) {
+            if (recorde > recordeAnterior) {
+                ctx.font = `130px 'Press Start 2P' `
+                ctx.fillText("RECORDE", 500, 500)
+            }
+            tocar_audio(perdeuSemRecorde)
+            ctx.font = `65px 'Press Start 2P' `
             ctx.fillText("voce marcou", 500, 1310)
             ctx.fillText(pontos + " pontos!", 500, 1450)
         }
@@ -374,11 +409,13 @@ const gira = () => {
     if (colidiuGiro(fazFormas(posx, posy, formaAtual, prxangulo), objetos, t)) {
         return
     }
+    tocar_audio(clik, 0.8)
     angulo < 3 ? angulo += 1 : angulo = 0
 }
 
 const moveCima = () => {
     if (!iniciou) return
+    tocar_audio(mover)
     posy -= t
 }
 
@@ -387,24 +424,35 @@ const moveBaixo = () => {
     if (colidiuBaixo(fazFormas(posx, posy, formaAtual, angulo), objetos, t)) {
         return
     }
+    tocar_audio(mover)
     posy += t
 }
 
 const moveEsquerda = () => {
     if (!iniciou) return
     if (colidiuEsquerda(fazFormas(posx, posy, formaAtual, angulo), objetos)) {
+        tocar_audio(bateuBloco)
         return
     }
-    if (limeteDaForma() === 0) return
+    if (limeteDaForma() === 0) {
+         tocar_audio(bateuParede, 0.2)
+        return
+    }
+    tocar_audio(mover)
     posx -= t
 }
 
 const moveDireita = () => {
     if (!iniciou) return
     if (colidiuDireita(fazFormas(posx, posy, formaAtual, angulo), objetos)) {
+         tocar_audio(bateuBloco)
         return
     }
-    if (limeteDaForma() + t === largura) return
+    if (limeteDaForma() + t === largura) {
+        tocar_audio(bateuParede, 0.2)
+        return
+    }
+    tocar_audio(mover)
     posx += t
 }
 
@@ -414,6 +462,18 @@ const pausar = () => {
         return
     }
     iniciou = true
+    tocar_audio(play, 0.1)
+    tocar_audio(loopTema, 0.1, true)
+}
+
+const mutar = () => {
+    if (semSom) {
+        semSom = false
+        tocar_audio(loopTema, 0.1, true)
+        return
+    }
+    AUDIOS.forEach(audio => audio.pause())
+    semSom = true
 }
 
 const chamaFuncao = (key) => {
@@ -425,6 +485,7 @@ const chamaFuncao = (key) => {
         "Space" : gira,
         "KeyP" : pausar,
         "KeyR" : reset,
+        "KeyM" : mutar,
     }
     if (!keys[key]) return
     return keys[key]
@@ -437,6 +498,7 @@ BODY.addEventListener("keydown", (evt) => {
 BTNS.forEach(btn => {
     btn.addEventListener("click", (e) => {
         const BUTTONKEY = e.target.dataset.buttonKey
+        //tocar_audio(clik)
         chamaFuncao(BUTTONKEY)()
     })
 })

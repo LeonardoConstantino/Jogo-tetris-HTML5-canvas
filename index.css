@@ -186,6 +186,35 @@ canvas {
     background-color: #121212;
     transform: rotate(-45deg);
 }
+.game>button.mute>i{
+    position: relative;
+    border: 7px solid transparent;
+    border-top: 7px solid #121212;
+    border-left: 7px solid #121212;
+    transform: rotate(-45deg);
+}
+.game>button.mute>i::after{
+    content: '';
+    width: 8px;
+    height: 8px;
+    background-color: #121212;
+    left: -10px;
+    top: -10px;
+    position: absolute;
+    transform: rotate(-45deg);
+}
+.game>button.mute>i::before{
+    content: '';
+    border-top-right-radius: 50px;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-top: 7px double #121212;
+    border-right: 7px double #121212;
+    left: -2.5px;
+    top: -2.5px;
+    transform: rotate(90deg);
+}
 .game>button.reset>i{
     width: 15px;
     height: 15px;
