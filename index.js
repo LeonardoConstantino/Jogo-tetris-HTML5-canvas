@@ -1,10 +1,10 @@
+import { largura, altura, paddingX, paddingY, paddingYExtra, t,  dificuldade, } from './scripts/constantes de controle.js'
+
+import { BODY, PONTOS, RECORDE, BTNS, DEBUG, AUDIOS, canvas, ctx, canvas2, ctx2 } from './scripts/constantes do DOM.js'
+
 import fazFormas from './scripts/funcao fazFormas.js'
 
-import { largura, altura, paddingX, paddingY, paddingYExtra, t,  dificuldade, }
-    from './scripts/constantes de controle.js'
-
-import { BODY, PONTOS, RECORDE, BTNS, DEBUG, AUDIOS, canvas, ctx, canvas2, ctx2 }
-    from './scripts/constantes do DOM.js'
+import { colidiuBaixo, colidiuGiro, colidiuDireita, colidiuEsquerda } from './scripts/funcoes de detctar colisoes.js'
 
 //tamanho do canvas
 canvas.width = largura
@@ -28,6 +28,7 @@ const [
 let iniciou = false
 let perdeu = false
 let semSom = false
+let fezRecorde = false
 let posx = 500
 let posy = -200
 let attTela = 500
@@ -48,6 +49,7 @@ const atualizaPontos = () => {
     PONTOS.innerHTML = pontos < 10 ? "0" + pontos : pontos
     if (pontos > recorde) {
         tocar_audio(pontoRecorde)
+        fezRecorde = true
         atualizaRecorde(pontos)
     }
 }
@@ -59,14 +61,13 @@ const atualizaRecorde = (v) => {
         : localStorage.getItem('recorde')
 }
 
-const tocar_audio =
-    (audio, volume = 1, loop, currentTime = '0') =>{
-        if (semSom) return
-        audio.currentTime = currentTime
-        audio.loop = loop
-        audio.volume = volume
-        audio.play()
-    }
+const tocar_audio = (audio, volume = 1, loop, currentTime = '0') =>{
+    if (semSom) return
+    audio.currentTime = currentTime
+    audio.loop = loop
+    audio.volume = volume
+    audio.play()
+}
 
 const reset = () => {
     iniciou = false
@@ -84,13 +85,10 @@ const reset = () => {
 }
 
 const marcouPonto = () => {
-    let acc = 0
     let i = altura / t
-    let somaDosX = 4500
     for (i; i >= 0; i--) {
         let res = objetos.filter(o => o.y === i * t)
-            .reduce((p, c) => p + c.x, acc)
-        if (res == somaDosX) {
+        if (res.length == 10) {
             return [true, i * t]
         }
     }
@@ -237,7 +235,7 @@ const desenha = () => {
         ctx.fillText("Aperte o play", 500, 950)
         ctx.fillText(`para ${palavraCerta}`, 500, 1130)
         if (perdeu) {
-            if (recorde > recordeAnterior) {
+            if (fezRecorde) {
                 ctx.font = `130px 'Press Start 2P' `
                 ctx.fillText("RECORDE", 500, 500)
             }
@@ -297,6 +295,18 @@ const desenha = () => {
         ctx.strokeRect(x, y, t, t)
         ctx.fillStyle = "#ddd"
         if (DEBUG.checked) {
+            ctx.lineWidth = 3
+            for (let i = 0; i < 9; i++) {
+                ctx.strokeStyle = "#f00"
+                ctx.beginPath();
+                ctx.moveTo((i+1)*100, 0);
+                ctx.lineTo((i+1)*100, 2000);
+                ctx.moveTo(0, (i+1)*100);
+                ctx.lineTo(1000, (i+1)*100);
+                ctx.moveTo(0, (i+1)*100+900);
+                ctx.lineTo(1000, (i+1)*100+900);
+                ctx.stroke();
+            }
             ctx.font = `bold 30px Monospace `
             ctx.fillText("index: " + i, paddingX, 2 * paddingY + i * paddingYExtra)
             ctx.fillText("X " + x, paddingX, 3 * paddingY + i * paddingYExtra)
@@ -319,89 +329,6 @@ const desenha = () => {
 const limeteDaForma = () => checkxMinMax(
     fazFormas(posx, posy, formaAtual, angulo)
 )
-
-const colidiuEsquerda = (forma, objs) => {
-    let novo = forma.map(f => {
-        return {  x: f.x -= t,  y: f.y }
-    })
-    let [b0, b1, b2, b3] = novo
-    if (objs.some(obj => obj.x == b0.x && obj.y == b0.y)) {
-        return true
-    }
-    if (objs.some(obj => obj.x == b1.x && obj.y == b1.y)) {
-        return true
-    }
-    if (objs.some(obj => obj.x == b2.x && obj.y == b2.y)) {
-        return true
-    }
-    if (objs.some(obj => obj.x == b3.x && obj.y == b3.y)) {
-        return true
-    }
-    return false
-}
-
-const colidiuDireita = (forma, objs) => {
-    let novo = forma.map(f => {
-        return {  x: f.x + t,  y: f.y }
-    })
-    let [b0, b1, b2, b3] = novo
-    if (objs.some(obj => obj.x == b0.x && obj.y == b0.y)) {
-        return true
-    }
-    if (objs.some(obj => obj.x == b1.x && obj.y == b1.y)) {
-        return true
-    }
-    if (objs.some(obj => obj.x == b2.x && obj.y == b2.y)) {
-        return true
-    }
-    if (objs.some(obj => obj.x == b3.x && obj.y == b3.y)) {
-        return true
-    }
-    return false
-}
-
-const colidiuGiro = (forma, objs) => {
-    if (forma.some(f => f.x <= 0 || f.x >= largura)) {
-        return true
-    }
-    let [b0, b1, b2, b3] = forma
-    if (objs.some(obj => obj.x == b0.x && obj.y == b0.y)) {
-        return true
-    }
-    if (objs.some(obj => obj.x == b1.x && obj.y == b1.y)) {
-        return true
-    }
-    if (objs.some(obj => obj.x == b2.x && obj.y == b2.y)) {
-        return true
-    }
-    if (objs.some(obj => obj.x == b3.x && obj.y == b3.y)) {
-        return true
-    }
-    return false
-}
-
-const colidiuBaixo = (forma, objs, tam) => {
-    let novo = forma.map(f => {
-        return {  x: f.x,  y: f.y + tam  }
-    })
-    if (novo.some(bf => bf.y >= altura)) {
-        return true
-    }
-    let [b0, b1, b2, b3] = novo
-    if (objs.some(obj => obj.x == b0.x && b0.y == obj.y)) {
-        return true
-    }
-    if (objs.some(obj => obj.x == b1.x && b1.y == obj.y)) {
-        return true
-    }
-    if (objs.some(obj => obj.x == b2.x && b2.y == obj.y)) {
-        return true
-    }
-    if (objs.some(obj => obj.x == b3.x && b3.y == obj.y)) {
-        return true
-    }
-    return false
-}
 
 const gira = () => {
     if (!iniciou) return
@@ -462,6 +389,7 @@ const pausar = () => {
         return
     }
     iniciou = true
+    fezRecorde = false
     tocar_audio(play, 0.1)
     tocar_audio(loopTema, 0.1, true)
 }
@@ -487,25 +415,26 @@ const chamaFuncao = (key) => {
         "KeyR" : reset,
         "KeyM" : mutar,
     }
-    if (!keys[key]) return
     return keys[key]
 }
 
 BODY.addEventListener("keydown", (evt) => {
-    chamaFuncao(evt.code)()
+    if (chamaFuncao(evt.code)) {
+        chamaFuncao(evt.code)()
+    }
 })
 
 BTNS.forEach(btn => {
     btn.addEventListener("click", (e) => {
         const BUTTONKEY = e.target.dataset.buttonKey
-        //tocar_audio(clik)
-        chamaFuncao(BUTTONKEY)()
+        if(chamaFuncao(BUTTONKEY)){
+            chamaFuncao(BUTTONKEY)()
+        }
     })
 })
 
 const atualizaDificuldade = ()=>{
     clearInterval(intervalo)
-    console.log(attTela)
     intervalo = setInterval(desenha, attTela)
     attTela -= dificuldade
 }
