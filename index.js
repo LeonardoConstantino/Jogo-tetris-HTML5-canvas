@@ -427,6 +427,7 @@ BODY.addEventListener("keydown", (evt) => {
 BTNS.forEach(btn => {
     btn.addEventListener("click", (e) => {
         const BUTTONKEY = e.target.dataset.buttonKey
+        e.target.blur()
         if(chamaFuncao(BUTTONKEY)){
             chamaFuncao(BUTTONKEY)()
         }
