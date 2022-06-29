@@ -1,13 +1,42 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <meta name="description" content="Jogo tetris">
+    <link rel="apple-touch-icon" sizes="57x57" href="./favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="./favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="./favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="./favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="./favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+    <link rel="manifest" href="./favicon/manifest.json">
+    <meta name="msapplication-TileImage" content="./favicon/ms-icon-144x144.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#05F2F2" data-theme-color>
+    <meta name="apple-mobile-web-app-status-bar-style" content="#05F2F2" data-theme-color>
+    <meta name="theme-color" content="#05F2F2" data-theme-color>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://leonardoconstantino.github.io/Jogo-tetris-HTML5-canvas/">
+    <meta property="og:title" content="Tetris">
+    <meta property="og:image" content="./favicon/previa.jpg">
+    <meta property="og:description" content="Jogo tetris">
+    <meta property="og:site_name" content="Tetris">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <link rel="stylesheet" href="index.css">
-    <title>Canvas</title>
+    <title>Tetris</title>
 </head>
 
 <body>
@@ -17,9 +46,9 @@
             <div class="infos">
                 <div>
                     <p>Pontos:</p>
-                    <spam class="pontos">
+                    <span class="pontos">
                         00
-                    </spam>
+                    </span>
                 </div>
                 <div>
                     <p>Proximo:</p>
@@ -27,11 +56,11 @@
                 </div>
                 <div>
                     <p>Recorde:</p>
-                    <spam class="recorde">
+                    <span class="recorde">
                         00
-                    </spam>
-                </div> 
-                <label> 
+                    </span>
+                </div>
+                <label>
                     <input type="checkbox" name="debug" id="debug">
                     Debug
                 </label>
@@ -41,69 +70,42 @@
         <div class="controle">
             <div>
                 <div class="game">
-                    <button
-                        class="button pausar"
-                        data-button-key="KeyP"
-                        title="Começar/pausar"
-                    ><i data-button-key="KeyP"></i></button>
-                    <button
-                        class="button mute"
-                        data-button-key="KeyM"
-                        title="desligar som"
-                    ><i data-button-key="KeyM"></i></button>
-                    <button
-                        class="button reset"
-                        data-button-key="KeyR"
-                        title="reset"
-                    ><i data-button-key="KeyR"></i></button>
-                </div> 
-                <button
-                    class="button espaco"
-                    data-button-key="Space"
-                    title="Espaço"
-                >↻</button>
+                    <button class="button pausar" data-button-key="KeyP" title="Começar/pausar"><i
+                            data-button-key="KeyP"></i></button>
+                    <button class="button mute" data-button-key="KeyM" title="desligar som"><i
+                            data-button-key="KeyM"></i></button>
+                    <button class="button reset" data-button-key="KeyR" title="reset"><i
+                            data-button-key="KeyR"></i></button>
+                </div>
+                <button class="button espaco" data-button-key="Space" title="Espaço">↻</button>
             </div>
             <div class="setas">
                 <div>
                     <div class="seta"></div>
-                    <button
-                        class="button seta"
-                        data-button-key="ArrowUp"
-                        title="Seta para cima"
-                    >↑</button>
+                    <button class="button seta" data-button-key="ArrowUp" title="Seta para cima">↑</button>
                     <div class="seta"></div>
                 </div>
                 <div>
-                    <button 
-                        class="button seta"
-                        data-button-key="ArrowLeft"
-                        title="Seta para esquerda"
-                    >←</button>
-                    <button
-                        class="button seta"
-                        data-button-key="ArrowDown"
-                        title="Seta para baixo"
-                    >↓</button>
-                    <button
-                        class="button seta"
-                        data-button-key="ArrowRight"
-                        title="Seta para direita"
-                    >→</button>
+                    <button class="button seta" data-button-key="ArrowLeft" title="Seta para esquerda">←</button>
+                    <button class="button seta" data-button-key="ArrowDown" title="Seta para baixo">↓</button>
+                    <button class="button seta" data-button-key="ArrowRight" title="Seta para direita">→</button>
                 </div>
             </div>
         </div>
     </main>
-    <audio src="./sons/bateu bloco.mp3" preload="auto"></audio>
-    <audio src="./sons/bateu parede.mp3" preload="auto"></audio>
+    <audio src="./sons/bateuBloco.mp3" preload="auto"></audio>
+    <audio src="./sons/bateuParede.mp3" preload="auto"></audio>
     <audio src="./sons/clik.mp3" preload="auto"></audio>
-    <audio src="./sons/fez ponto.mp3" preload="auto"></audio>
-    <audio src="./sons/loop tema.mp3" preload="auto"></audio>
+    <audio src="./sons/fezPonto.mp3" preload="auto"></audio>
+    <audio src="./sons/loopTema.mp3" preload="auto"></audio>
     <audio src="./sons/mover.mp3" preload="auto"></audio>
-    <audio src="./sons/perdeu sem recorde.mp3" preload="auto"></audio>
+    <audio src="./sons/perdeuSemRecorde.mp3" preload="auto"></audio>
     <audio src="./sons/play.mp3" preload="auto"></audio>
-    <audio src="./sons/ponto com recorde.mp3" preload="auto"></audio>
+    <audio src="./sons/pontoComRecorde.mp3" preload="auto"></audio>
     <audio src="./sons/reset.mp3" preload="auto"></audio>
-    <!-- <script src="tetris.js"></script> -->
+    <noscript>
+        Você precisa habilitar JavaScript para rodar esta aplicação.
+    </noscript>
     <script type="module" src="index.js"></script>
 </body>
 

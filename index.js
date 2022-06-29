@@ -1,6 +1,6 @@
 import { largura, altura, paddingX, paddingY, paddingYExtra, t,  dificuldade, } from './scripts/constantes de controle.js'
 
-import { BODY, PONTOS, RECORDE, BTNS, DEBUG, AUDIOS, canvas, ctx, canvas2, ctx2 } from './scripts/constantes do DOM.js'
+import { themeColor, BODY, PONTOS, RECORDE, BTNS, DEBUG, AUDIOS, canvas, ctx, canvas2, ctx2 } from './scripts/constantes do DOM.js'
 
 import fazFormas from './scripts/funcao fazFormas.js'
 
@@ -439,3 +439,12 @@ const atualizaDificuldade = ()=>{
     attTela -= dificuldade
 }
 atualizaDificuldade()
+
+const mudaCorTema = () =>{ 
+    const cores = ["#F9FF00", "#05F2F2", "#F60100", "#67B523", "#F27405", "#FD50BB", "#9E0095"]
+    const corAleatoria = Math.floor((Math.random() * cores.length))
+    themeColor.forEach(item => item.content = cores[corAleatoria])
+}
+mudaCorTema()
+
+setInterval(mudaCorTema, 30000)
