@@ -1,12 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@300&display=swap');
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 10 version
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 * {
     /*reset css*/
     margin: 0;
     padding: 0;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     outline: none;
-    font-family: "Roboto", sans-serif;
+    font-family: 'Press Start 2P', cursive;
     /* background-color: rgba(0, 255, 0, .1) */
 }
 
@@ -14,33 +22,60 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: #121212;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
 }
 
 main {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     min-width: 90%;
     max-width: 500px;
-    padding-top: 1em;
     background-color: #121212;
 }
 
 .tela {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     gap: .25em;
 }
 
 .infos {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -ms-flex-item-align: start;
     align-self: flex-start;
     max-width: 132px;
     width: 28vw;
@@ -49,9 +84,18 @@ main {
 }
 
 .infos>div {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     gap: 1em;
     padding: 1em 0;
@@ -59,26 +103,27 @@ main {
 
 .infos>div>p {
     font-weight: 700;
-    font-size: .95em;
+    font-size: .85em;
     color: #9E9E9E;
-    font-family: 'Press Start 2P', cursive;
 }
 
-.infos>div>spam {
+.infos>div>span {
     font-size: 1.5em;
     color: #9E9E9E;
-    font-family: 'Press Start 2P', cursive;
 }
 
 #debug {
     opacity: 0.2;
+    -webkit-transition: 0.4s;
+    -o-transition: 0.4s;
     transition: 0.4s;
 }
 
 label {
     padding: 1em;
-    font-family: 'Press Start 2P', cursive;
     font-size: .6em;
+    -webkit-transition: 0.4s;
+    -o-transition: 0.4s;
     transition: 0.4s;
 }
 
@@ -87,9 +132,7 @@ label:hover #debug {
 }
 
 label:hover {
-    /* opacity: 1; */
     color: #9E9E9E;
-    font-family: 'Press Start 2P', cursive;
     font-size: .6em;
 }
 
@@ -98,18 +141,33 @@ label:hover {
     border-radius: .25em;
     width: 5em;
     height: 5em;
+    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-pixelated;
+    image-rendering: pixelated;
 }
 
-canvas {
+#canvas {
     width: 70vw;
     max-width: 330px;
     border: solid 1px red;
+    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-pixelated;
     image-rendering: pixelated;
 }
 
 .controle {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     width: 90%;
     max-width: 500px;
@@ -122,8 +180,14 @@ canvas {
 }
 
 .button {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     float: left;
     margin-right: 2px;
@@ -132,7 +196,6 @@ canvas {
     padding: 0 20px;
     font-weight: bold;
     border: solid 5px #000;
-
     border-width: 0 4px 5px 0;
     border-radius: 5px;
     border-color: transparent #ddd #999 transparent;
@@ -153,8 +216,13 @@ canvas {
 }
 
 .game {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-pack: distribute;
     justify-content: space-around;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
     align-items: flex-start;
     height: 40px;
     width: 100%;
@@ -162,21 +230,22 @@ canvas {
 }
 
 .game>button {
-    /* border-radius: 50%; */
     padding: 10px;
     height: 30px;
-    /*width: 60px;*/
 }
 
-.game>button.pausar>i{
+.game>button.pausar>i {
     border: 7px solid transparent;
     border-top: 7px solid #121212;
     border-right: 7px solid #121212;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
     transform: rotate(45deg);
     position: relative;
-    
+
 }
-.game>button.pausar>i::after{
+
+.game>button.pausar>i::after {
     content: "";
     position: absolute;
     top: -6px;
@@ -184,16 +253,22 @@ canvas {
     width: 4px;
     height: 17px;
     background-color: #121212;
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
     transform: rotate(-45deg);
 }
-.game>button.mute>i{
+
+.game>button.mute>i {
     position: relative;
     border: 7px solid transparent;
     border-top: 7px solid #121212;
     border-left: 7px solid #121212;
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
     transform: rotate(-45deg);
 }
-.game>button.mute>i::after{
+
+.game>button.mute>i::after {
     content: '';
     width: 8px;
     height: 8px;
@@ -201,9 +276,12 @@ canvas {
     left: -10px;
     top: -10px;
     position: absolute;
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
     transform: rotate(-45deg);
 }
-.game>button.mute>i::before{
+
+.game>button.mute>i::before {
     content: '';
     border-top-right-radius: 50px;
     position: absolute;
@@ -213,16 +291,23 @@ canvas {
     border-right: 7px double #121212;
     left: -2.5px;
     top: -2.5px;
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
     transform: rotate(90deg);
 }
-.game>button.reset>i{
+
+.game>button.reset>i {
     width: 15px;
     height: 15px;
     background-color: #121212;
 }
 
 .setas>div {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     padding: .25em;
 }
@@ -238,5 +323,7 @@ canvas {
 hr {
     width: 99%;
     margin: 1em 0;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ddd), color-stop(#ccc), to(#ddd));
+    background-image: -o-linear-gradient(#ddd, #ccc, #ddd);
     background-image: linear-gradient(#ddd, #ccc, #ddd);
 }
