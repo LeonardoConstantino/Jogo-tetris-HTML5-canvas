@@ -202,17 +202,13 @@ label:hover {
     background-clip: padding-box;
     color: #121212;
     font-size: 2em;
+    transition: 50ms ease;
 
 }
 
 .espaco {
     height: 40px;
     width: 100%;
-}
-
-.seta {
-    height: 40px;
-
 }
 
 .game {
@@ -232,6 +228,7 @@ label:hover {
 .game>button {
     padding: 10px;
     height: 30px;
+    touch-action: manipulation;
 }
 
 .game>button.pausar>i {
@@ -312,13 +309,81 @@ label:hover {
     padding: .25em;
 }
 
+.seta {
+    height: 40px;
+}
+
+.seta>i {
+    position: relative;
+    height: 0px;
+    width: 0px;
+    border: 12px solid;
+    border-color:
+        #121212 #121212 transparent transparent;
+}
+
+.seta>i::after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    display: block;
+    height: 12px;
+    width: 16px;
+    background-color: #121212;
+    transform:
+        rotate(-45deg) translate(2px, 1px);
+}
+
+i[data-button-key="ArrowUp"] {
+    transform: rotate(-45deg);
+}
+
+i[data-button-key="ArrowLeft"] {
+    transform: rotate(-135deg);
+}
+
+i[data-button-key="ArrowRight"] {
+    transform: rotate(45deg);
+}
+
+i[data-button-key="ArrowDown"] {
+    transform: rotate(135deg);
+}
+
+i[data-button-key="Space"] {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    border: 5px solid #121212;
+    border-radius: 50%;
+    border-right-color: transparent;
+    transform: rotate(-90deg);
+}
+
+i[data-button-key="Space"]::after {
+    content: "";
+    position: absolute;
+
+    border: 12px solid #121212;
+    top: -6px;
+    left: 7.5px;
+
+    border-bottom-color: #121212;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-left-color: transparent;
+}
+
 .button:active {
     border-width: 0 2px 3px 0;
     margin-right: 4px;
     position: relative;
     left: 2px;
     top: 3px;
+    transform: scale(.9);
 }
+
 
 hr {
     width: 99%;
