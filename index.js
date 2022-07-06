@@ -34,6 +34,7 @@ let posy = -200
 let attTela = 500
 let intervalo
 let pontos = 0
+let pontosDaRodada = 0
 let angulo = Math.floor((Math.random() * 4))
 let formaAtual = Math.floor((Math.random() * 7))
 let proximaForma = Math.floor((Math.random() * 7))
@@ -41,7 +42,6 @@ let objetos = []
 let recorde =
     localStorage.getItem('recorde') ?
     localStorage.getItem('recorde') : 0
-let recordeAnterior = recorde
 RECORDE.innerHTML = recorde < 10 ? "0" + recorde : recorde
 
 const atualizaPontos = () => {
@@ -70,12 +70,14 @@ const tocar_audio = (audio, volume = 1, loop, currentTime = '0') =>{
 }
 
 const reset = () => {
+    pontosDaRodada = pontos
     iniciou = false
-    perdeu = false
+    // perdeu = false
     objetos = []
     posx = 500
     posy = -200
     attTela = 500
+    atualizaDificuldade()
     angulo = Math.floor((Math.random() * 4))
     formaAtual = Math.floor((Math.random() * 7))
     proximaForma = Math.floor((Math.random() * 7))
@@ -147,6 +149,9 @@ const atualiza = () => {
     if (objetos.some(obj => obj.y <= 0)) {
         perdeu = true
         iniciou = false
+        if (!fezRecorde) {
+            tocar_audio(perdeuSemRecorde)
+        }
         desenha()
         reset()
         return
@@ -157,6 +162,7 @@ const atualiza = () => {
         return
     }
     posy += 100
+    perdeu = false
     let [pontuou, cord] = marcouPonto()
     if (pontuou) {
         tocar_audio(fezPonto)
@@ -239,10 +245,9 @@ const desenha = () => {
                 ctx.font = `130px 'Press Start 2P' `
                 ctx.fillText("RECORDE", 500, 500)
             }
-            tocar_audio(perdeuSemRecorde)
             ctx.font = `65px 'Press Start 2P' `
             ctx.fillText("voce marcou", 500, 1310)
-            ctx.fillText(pontos + " pontos!", 500, 1450)
+            ctx.fillText(pontosDaRodada + " pontos!", 500, 1450)
         }
         ctx.restore()
         return
